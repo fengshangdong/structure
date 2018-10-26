@@ -3,13 +3,13 @@
 
 #include <stdlib.h>
 
-//链表单个元素结构体
+/* 链表元素 */
 typedef struct ListElmt_{
 	void *data;
 	struct ListElmt_ *next;
 }ListElmt;
 
-//链表结构体
+/* 链表 */
 typedef struct List_{
 	int size;
 
