@@ -41,7 +41,8 @@ int clist_ins_next(CList *list, CListElmt *element, const void *data)
 	if (clist_size(list) == 0) {
 		new_element->next = new_element;
 		list->head = new_element;
-	} else {
+	}
+	else {
 		new_element->next = element->next;
 		element->next = new_element;
 	}
