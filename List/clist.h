@@ -3,19 +3,21 @@
 
 #include <stdlib.h>
 
-typedef struct CListElmt_{
+/* 环形链表元素 */
+typedef struct CListElmt_ {
 	void *data;
 	struct CListElmt_ *next;
-}CListElmt;
+} CListElmt;
 
-typedef struct CList_{
+/* 环形链表 */
+typedef struct CList_ {
 	int size;
 
 	int (*match)(const void *key1, const void *key2);
 	void (*destroy)(void *data);
 
 	CListElmt *head;
-}CList;
+} CList;
 
 void clist_init(CList *list, void (*destroy)(void *data));
 void clist_destroy(CList *list);
