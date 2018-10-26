@@ -19,6 +19,7 @@ void list_destroy(List *list)
 	/* 移除每个元素 */
 	while (list_size(list) > 0) {
 		if (list_rem_next(list, NULL, (void **)&data) == 0 && list->destroy != NULL) {
+			/* 释放data的内存 */
 			list->destroy(data);
 		}
 	}

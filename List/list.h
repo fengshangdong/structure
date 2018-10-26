@@ -4,13 +4,13 @@
 #include <stdlib.h>
 
 /* 链表元素 */
-typedef struct ListElmt_{
+typedef struct ListElmt_ {
 	void *data;
 	struct ListElmt_ *next;
-}ListElmt;
+} ListElmt;
 
 /* 链表 */
-typedef struct List_{
+typedef struct List_ {
 	int size;
 
 	int (*match)(const void *key1, const void *key2);
@@ -18,7 +18,7 @@ typedef struct List_{
 
 	ListElmt *head;
 	ListElmt *tail;
-}List;
+} List;
 
 void list_init(List *list, void (*destroy)(void *data));
 void list_destroy(List *list);
