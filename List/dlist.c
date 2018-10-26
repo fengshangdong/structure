@@ -18,10 +18,8 @@ void dlist_destroy(DList *list)
 {
 	void *data;
 	while (dlist_size(list) > 0) {
-		if (dlist_remove(list, dlist_tail(list), (void **)&data) == 0 
-				&& list->destroy != NULL) {
-
-			/* 释放元素内存 */
+		if (dlist_remove(list, dlist_tail(list), (void **)&data) == 0 && list->destroy != NULL) {
+			/* 释放data的内存 */
 			list->destroy(data);
 		}
 	}
@@ -80,16 +78,17 @@ int dlist_ins_prev(DList *list, DListElmt *element, const void *data)
 	/* 如果链表为空，元素把自己当作自己的前驱节点和后继节点 */
 	/* 如果链表非空，元素插入element之前 */
 	new_element->data = (void *)data;
-	if(dlist_size(list) == 0){
+	if (dlist_size(list) == 0) {
 		list->head = new_element;
 		list->head->prev = NULL;
 		list->head->next = NULL;
 		list->tail = new_element;
-	}else{
+	}
+	else {
 		new_element->next = element;
 		new_element->prev = element->prev;
 
-		if(element->prev == NULL)
+		if (element->prev == NULL)
 			list->head = new_element;
 		else
 			element->prev->next = new_element;
