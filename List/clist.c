@@ -35,7 +35,7 @@ int clist_ins_next(CList *list, CListElmt *element, const void *data)
 		return -1;
 
 	/* 插入元素 */
-	/* 链表为空,插入元素做头结点,自己的后继节点指向自己 */
+	/* 链表为空,插入元素做头结点,头节点的后继节点指向自己 */
 	/* 链表不为空,在element之后插入元素 */
 	new_element->data = (void *)data;
 	if (clist_size(list) == 0) {
