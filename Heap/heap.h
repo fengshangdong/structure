@@ -1,14 +1,15 @@
 #ifndef HEAP_H
 #define HEAP_H
 
-//定义堆结构体
-typedef struct Heap_{
-	int                size;
-	int                (*compare)(const void *key1, const void *key2);
-	void               (*destroy)(void *data);
+/* 堆结构 */
+typedef struct Heap_ {
+	int size;
 
-	void               **tree;
-}Heap;
+	int (*compare)(const void *key1, const void *key2);
+	void (*destroy)(void *data);
+
+	void **tree;
+} Heap;
 
 void heap_init(Heap *heap, int (*compare)(const void *key1, const void *key2),
 		void (*destroy)(void *data));
