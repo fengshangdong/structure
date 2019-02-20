@@ -25,18 +25,12 @@ static int partition(void *data, int esize, int i, int k, int (*compare)
 {
 	char	*a = data;
 	void    *pval, *temp;
-	int		r[3];
 
 	//pval保存中位数,temp临时空间用于数据交换
 	if((pval = malloc(esize)) == NULL)	{ return -1; }
 	if((temp = malloc(esize)) == NULL)	{ free(pval); return -1; }
 
-	//3个随机数,用插入排序取得数组的中位数
-	r[0] = (rand() % (k - i + 1)) + i;
-	r[1] = (rand() % (k - i + 1)) + i;
-	r[2] = (rand() % (k - i + 1)) + i;
-	issort(r, 3, sizeof(int), compare_int);
-	memcpy(pval, &a[r[1] * esize], esize);
+	memcpy(pval, &a[i * esize], esize);
 
 	//根据中位数将数组分成两部分,左边小于该中位数pval,右边大于pval
 	i--;
