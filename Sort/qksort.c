@@ -23,8 +23,8 @@ static int compare_int(const void *int1, const void *int2)
 static int partition(void *data, int esize, int i, int k,
                      int (*compare)(const void *key1, const void *key2))
 {
-	char	*a = data;
-	void    *pval, *temp;
+	char *a = data;
+	void *pval, *temp;
 
 	//pval保存中位数,temp临时空间用于数据交换
 	if ((pval = malloc(esize)) == NULL)
