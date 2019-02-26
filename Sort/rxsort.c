@@ -6,8 +6,8 @@
 #include <Sort/sort.h>
 
 /* 基数排序 */
-int rxsort(int *data, int size, int p, int k) {
-
+int rxsort(int *data, int size, int p, int k)
+{
 	int *counts, *temp;
 	int index, pval, i, j, n;
 
