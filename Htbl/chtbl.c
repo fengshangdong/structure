@@ -4,8 +4,8 @@
 #include <Htbl/chtbl.h>
 
 //初始化链式哈希表,哈希表每个坑位表示一条链
-int chtbl_init(CHTbl *htbl, int buckets, int (*h)(const void *key), int
-    (*match)(const void *key1, const void *key2), void (*destroy)(void*data)) 
+int chtbl_init(CHTbl *htbl, int buckets, int (*h)(const void *key),
+               int (*match)(const void *key1, const void *key2), void (*destroy)(void*data)) 
 {
   int	i;
   //为哈希表分配buckets个结点大小的空间

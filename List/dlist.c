@@ -18,7 +18,8 @@ void dlist_destroy(DList *list)
 {
   void *data;
   while (dlist_size(list) > 0) {
-    if (dlist_remove(list, dlist_tail(list), (void **)&data) == 0 && list->destroy != NULL) {
+    if (dlist_remove(list, dlist_tail(list), (void **)&data) == 0 &&
+        list->destroy != NULL) {
       /* 释放data的内存 */
       list->destroy(data);
     }

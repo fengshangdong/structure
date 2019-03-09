@@ -17,7 +17,8 @@ void clist_destroy(CList *list)
 {
   void *data;
   while (clist_size(list) > 0) {
-    if (clist_rem_next(list, list->head, (void **)&data) == 0 && list->destroy != NULL) {
+    if (clist_rem_next(list, list->head, (void **)&data) == 0 &&
+        list->destroy != NULL) {
       /* 释放元素内存 */
       list->destroy(data);
     }

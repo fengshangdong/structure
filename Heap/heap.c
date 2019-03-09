@@ -8,7 +8,7 @@
 
 /* 初始化堆 */
 void heap_init(Heap *heap, int (*compare)(const void *key1, const void *key2),
-    void (*destroy)(void *data))
+               void (*destroy)(void *data))
 {
   heap->size = 0;
   heap->compare = compare;

@@ -67,7 +67,7 @@ static int partition(void *data, int esize, int i, int k,
 
 //快排
 int qksort(void *data, int size, int esize, int i, int k,
-    int (*compare)(const void *key1, const void *key2))
+           int (*compare)(const void *key1, const void *key2))
 {
   int	j;
   //不断调用递归直到无法分化

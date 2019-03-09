@@ -12,7 +12,7 @@ typedef struct Heap_ {
 } Heap;
 
 void heap_init(Heap *heap, int (*compare)(const void *key1, const void *key2),
-    void (*destroy)(void *data));
+               void (*destroy)(void *data));
 
 void heap_destroy(Heap *heap);
 
