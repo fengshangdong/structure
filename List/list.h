@@ -5,19 +5,19 @@
 
 /* 链表元素 */
 typedef struct ListElmt_ {
-	void *data;
-	struct ListElmt_ *next;
+  void *data;
+  struct ListElmt_ *next;
 } ListElmt;
 
 /* 链表 */
 typedef struct List_ {
-	int size;
+  int size;
 
-	int (*match)(const void *key1, const void *key2);
-	void (*destroy)(void *data);
+  int (*match)(const void *key1, const void *key2);
+  void (*destroy)(void *data);
 
-	ListElmt *head;
-	ListElmt *tail;
+  ListElmt *head;
+  ListElmt *tail;
 } List;
 
 void list_init(List *list, void (*destroy)(void *data));

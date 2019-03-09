@@ -5,20 +5,20 @@
 
 /* 双向链表元素 */
 typedef struct DListElmt_ {
-	void *data;
-	struct DListElmt_ *prev;
-	struct DListElmt_ *next;
+  void *data;
+  struct DListElmt_ *prev;
+  struct DListElmt_ *next;
 } DListElmt;
 
 /* 双向链表 */
 typedef struct DList_ {
-	int size;
+  int size;
 
-	int (*match)(const void *key1, const void *key2);
-	void (*destroy)(void *data);
+  int (*match)(const void *key1, const void *key2);
+  void (*destroy)(void *data);
 
-	DListElmt *head;
-	DListElmt *tail;
+  DListElmt *head;
+  DListElmt *tail;
 } DList;
 
 void dlist_init(DList *list, void (*destroy)(void *data));

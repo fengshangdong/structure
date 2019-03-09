@@ -5,18 +5,18 @@
 
 /* 环形链表元素 */
 typedef struct CListElmt_ {
-	void *data;
-	struct CListElmt_ *next;
+  void *data;
+  struct CListElmt_ *next;
 } CListElmt;
 
 /* 环形链表 */
 typedef struct CList_ {
-	int size;
+  int size;
 
-	int (*match)(const void *key1, const void *key2);
-	void (*destroy)(void *data);
+  int (*match)(const void *key1, const void *key2);
+  void (*destroy)(void *data);
 
-	CListElmt *head;
+  CListElmt *head;
 } CList;
 
 void clist_init(CList *list, void (*destroy)(void *data));

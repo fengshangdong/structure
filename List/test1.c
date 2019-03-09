@@ -4,98 +4,98 @@
 
 static void print_list(const List *list)
 {
-	ListElmt *element;
-	int *data, i;
+  ListElmt *element;
+  int *data, i;
 
-	fprintf(stdout, "List size is %d\n", list_size(list));
+  fprintf(stdout, "List size is %d\n", list_size(list));
 
-	i = 0;
-	element = list_head(list);
-	while(1){
-		data = list_data(element);
-		fprintf(stdout, "list[%03d]=%03d\n", i, *data);
+  i = 0;
+  element = list_head(list);
+  while(1){
+    data = list_data(element);
+    fprintf(stdout, "list[%03d]=%03d\n", i, *data);
 
-		i++;
-		if(list_is_tail(element))
-			break;
-		else
-			element = list_next(element);
-	}
+    i++;
+    if(list_is_tail(element))
+      break;
+    else
+      element = list_next(element);
+  }
 
-	return;
+  return;
 }
 
 int main(int argc, char **argv)
 {
-	List list;
-	ListElmt *element;
-	int *data, i;
+  List list;
+  ListElmt *element;
+  int *data, i;
 
-	//初始化链表
-	list_init(&list, free);
+  //初始化链表
+  list_init(&list, free);
 
-	element = list_head(&list);
-	for(i = 10; i > 0; i--)
-	{
-		if((data = (int *)malloc(sizeof(int))) == NULL)
-			return 1;
+  element = list_head(&list);
+  for(i = 10; i > 0; i--)
+  {
+    if((data = (int *)malloc(sizeof(int))) == NULL)
+      return 1;
 
-		*data = i;
+    *data = i;
 
-		if(list_ins_next(&list, NULL, data) != 0)
-			return 1;
-	}
+    if(list_ins_next(&list, NULL, data) != 0)
+      return 1;
+  }
 
-	print_list(&list);
+  print_list(&list);
 
-	//*********************************
-	element = list_head(&list);
-	for(i = 0; i < 7; i++)
-		element = list_next(element);
+  //*********************************
+  element = list_head(&list);
+  for(i = 0; i < 7; i++)
+    element = list_next(element);
 
-	data = list_data(element);
-	fprintf(stdout, "removing an element after %03d\n", *data);
+  data = list_data(element);
+  fprintf(stdout, "removing an element after %03d\n", *data);
 
-	if(list_rem_next(&list, element, (void **)&data) != 0)
-		return 1;
+  if(list_rem_next(&list, element, (void **)&data) != 0)
+    return 1;
 
-	print_list(&list);
+  print_list(&list);
 
-	//*********************************
-	fprintf(stdout, "Inserting 011 at the tail\n");
-	*data = 11;
-	if(list_ins_next(&list, list_tail(&list), data) != 0)
-		return 1;
+  //*********************************
+  fprintf(stdout, "Inserting 011 at the tail\n");
+  *data = 11;
+  if(list_ins_next(&list, list_tail(&list), data) != 0)
+    return 1;
 
-	print_list(&list);
+  print_list(&list);
 
-	//*********************************
-	fprintf(stdout, "Removing an element after first element\n");
-	element = list_head(&list);
-	if(list_rem_next(&list, element, (void **)&data) != 0)
-		return 1;
+  //*********************************
+  fprintf(stdout, "Removing an element after first element\n");
+  element = list_head(&list);
+  if(list_rem_next(&list, element, (void **)&data) != 0)
+    return 1;
 
-	print_list(&list);
+  print_list(&list);
 
-	//*********************************
-	fprintf(stdout, "Inserting 012at the head \n");
-	*data = 12;
-	if(list_ins_next(&list, NULL, data) != 0)
-		return 1;
+  //*********************************
+  fprintf(stdout, "Inserting 012at the head \n");
+  *data = 12;
+  if(list_ins_next(&list, NULL, data) != 0)
+    return 1;
 
-	print_list(&list);
+  print_list(&list);
 
-	//*********************************
-	i = list_is_head(&list, list_head(&list));
-	fprintf(stdout, "Testing list_is_head... Value=%d (1=ok)\n", i);
-	i = list_is_head(&list, list_tail(&list));
-	fprintf(stdout, "Testing list_is_head... Value=%d (0=ok)\n", i);
-	i = list_is_tail(list_tail(&list));
-	fprintf(stdout, "Testing list_is_tail... Value=%d (1=ok)\n", i);
-	i = list_is_tail(list_head(&list));
-	fprintf(stdout, "Testing list_is_tail... Value=%d (0=ok)\n", i);
+  //*********************************
+  i = list_is_head(&list, list_head(&list));
+  fprintf(stdout, "Testing list_is_head... Value=%d (1=ok)\n", i);
+  i = list_is_head(&list, list_tail(&list));
+  fprintf(stdout, "Testing list_is_head... Value=%d (0=ok)\n", i);
+  i = list_is_tail(list_tail(&list));
+  fprintf(stdout, "Testing list_is_tail... Value=%d (1=ok)\n", i);
+  i = list_is_tail(list_head(&list));
+  fprintf(stdout, "Testing list_is_tail... Value=%d (0=ok)\n", i);
 
-	fprintf(stdout, "Destrng the list\n");
-	list_destroy(&list);
-	return 0;
+  fprintf(stdout, "Destrng the list\n");
+  list_destroy(&list);
+  return 0;
 }
