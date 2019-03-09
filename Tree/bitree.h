@@ -5,18 +5,18 @@
 
 //定义二叉树元素结构
 typedef struct BiTreeNode_{
-	void               *data;
-	struct BiTreeNode_ *left;
-	struct BiTreeNode_ *right;
+  void               *data;
+  struct BiTreeNode_ *left;
+  struct BiTreeNode_ *right;
 }BiTreeNode;
 
 //定义二叉树结构
 typedef struct BiTree_{
-	int                size;
-	int                (*compare)(const void *key1, const void *key2);
-	void               (*destroy)(void *data);
+  int                size;
+  int                (*compare)(const void *key1, const void *key2);
+  void               (*destroy)(void *data);
 
-	BiTreeNode         *root;
+  BiTreeNode         *root;
 }BiTree;
 
 void bitree_init(BiTree *tree, void (*destroy)(void *data));

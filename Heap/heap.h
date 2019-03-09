@@ -3,16 +3,16 @@
 
 /* 堆结构 */
 typedef struct Heap_ {
-	int size;
+  int size;
 
-	int (*compare)(const void *key1, const void *key2);
-	void (*destroy)(void *data);
+  int (*compare)(const void *key1, const void *key2);
+  void (*destroy)(void *data);
 
-	void **tree;
+  void **tree;
 } Heap;
 
 void heap_init(Heap *heap, int (*compare)(const void *key1, const void *key2),
-		void (*destroy)(void *data));
+    void (*destroy)(void *data));
 
 void heap_destroy(Heap *heap);
 

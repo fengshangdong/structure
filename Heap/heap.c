@@ -8,125 +8,125 @@
 
 /* 初始化堆 */
 void heap_init(Heap *heap, int (*compare)(const void *key1, const void *key2),
-		void (*destroy)(void *data))
+    void (*destroy)(void *data))
 {
-	heap->size = 0;
-	heap->compare = compare;
-	heap->destroy = destroy;
-	heap->tree = NULL;
+  heap->size = 0;
+  heap->compare = compare;
+  heap->destroy = destroy;
+  heap->tree = NULL;
 
-	return;
+  return;
 }
 
 /* 销毁堆 */
 void heap_destroy(Heap *heap)
 {
-	int	i;
-	if (heap->destroy != NULL){
-		for (i = 0; i < heap_size(heap); i++) {
-			heap->destroy(heap->tree[i]);
-		}
-	}
+  int	i;
+  if (heap->destroy != NULL){
+    for (i = 0; i < heap_size(heap); i++) {
+      heap->destroy(heap->tree[i]);
+    }
+  }
 
-	free(heap->tree);
-	memset(heap, 0, sizeof(Heap));
-	return;
+  free(heap->tree);
+  memset(heap, 0, sizeof(Heap));
+  return;
 }
 
 /* 入队 */
 int heap_insert(Heap *heap, const void *data)
 {
-	void	*temp;
-	int     ipos, ppos;
+  void	*temp;
+  int     ipos, ppos;
 
-	/* 重新分配内存 */
-	if ((temp = (void **)realloc(heap->tree, (heap_size(heap) + 1) * sizeof(void *))) == NULL){
-		return -1;
-	}
-	else {
-		heap->tree = temp;
-	}
-	
-	/* 新元素data插入尾部 */
-	/* 从尾部到头部进行迭代，维持堆的属性 */
-	heap->tree[heap_size(heap)] = (void *)data;
+  /* 重新分配内存 */
+  if ((temp = (void **)realloc(heap->tree, (heap_size(heap) + 1) * sizeof(void *))) == NULL){
+    return -1;
+  }
+  else {
+    heap->tree = temp;
+  }
 
-	ipos = heap_size(heap);
-	ppos = heap_parent(ipos);
+  /* 新元素data插入尾部 */
+  /* 从尾部到头部进行迭代，维持堆的属性 */
+  heap->tree[heap_size(heap)] = (void *)data;
 
-	while (ipos > 0 && heap->compare(heap->tree[ppos], heap->tree[ipos]) < 0)
-	{
-		temp = heap->tree[ppos];
-		heap->tree[ppos] = heap->tree[ipos];
-		heap->tree[ipos] = temp;
+  ipos = heap_size(heap);
+  ppos = heap_parent(ipos);
 
-		ipos = ppos;
-		ppos = heap_parent(ipos);
-	}
+  while (ipos > 0 && heap->compare(heap->tree[ppos], heap->tree[ipos]) < 0)
+  {
+    temp = heap->tree[ppos];
+    heap->tree[ppos] = heap->tree[ipos];
+    heap->tree[ipos] = temp;
 
-	heap->size++;
-	return 0;
+    ipos = ppos;
+    ppos = heap_parent(ipos);
+  }
+
+  heap->size++;
+  return 0;
 }
 
 /* 出队 */
 int heap_extract(Heap *heap, void **data)
 {
-	void	*save, *temp;
-	int     ipos, lpos, rpos, mpos;
+  void	*save, *temp;
+  int     ipos, lpos, rpos, mpos;
 
-	if (heap_size(heap) == 0)
-		return -1;
-		
-	/* 对堆的头和尾进行交换，重新分配堆内存大小减1 */
-	/* 再从头部到尾部迭代, 维持堆属性 */
-	*data = heap->tree[0];
-	save = heap->tree[heap_size(heap) - 1];
-	if (heap_size(heap) - 1 > 0) {
-		if ((temp = (void **)realloc(heap->tree, (heap_size(heap) - 1) * sizeof(void *))) == NULL)
-			return -1;
-		else
-			heap->tree = temp;
+  if (heap_size(heap) == 0)
+    return -1;
 
-		heap->size--;
-	}
-	else {
-		free(heap->tree);
-		heap->tree = NULL;
-		heap->size = 0;
-		return 0;
-	}
+  /* 对堆的头和尾进行交换，重新分配堆内存大小减1 */
+  /* 再从头部到尾部迭代, 维持堆属性 */
+  *data = heap->tree[0];
+  save = heap->tree[heap_size(heap) - 1];
+  if (heap_size(heap) - 1 > 0) {
+    if ((temp = (void **)realloc(heap->tree, (heap_size(heap) - 1) * sizeof(void *))) == NULL)
+      return -1;
+    else
+      heap->tree = temp;
 
-	heap->tree[0] = save;
+    heap->size--;
+  }
+  else {
+    free(heap->tree);
+    heap->tree = NULL;
+    heap->size = 0;
+    return 0;
+  }
 
-	ipos = 0;
-	lpos = heap_left(ipos);
-	rpos = heap_right(ipos);
+  heap->tree[0] = save;
 
-	while (1) {
-		lpos = heap_left(ipos);
-		rpos = heap_right(ipos);
+  ipos = 0;
+  lpos = heap_left(ipos);
+  rpos = heap_right(ipos);
 
-		if (lpos < heap_size(heap) && heap->compare(heap->tree[lpos], heap->tree[ipos]) > 0) {
-			mpos = lpos;
-		}
-		else {
-			mpos = ipos;
-		}
+  while (1) {
+    lpos = heap_left(ipos);
+    rpos = heap_right(ipos);
 
-		if (rpos < heap_size(heap) && heap->compare(heap->tree[rpos], heap->tree[mpos]) > 0) {
-			mpos = rpos;
-		}
+    if (lpos < heap_size(heap) && heap->compare(heap->tree[lpos], heap->tree[ipos]) > 0) {
+      mpos = lpos;
+    }
+    else {
+      mpos = ipos;
+    }
 
-		if (mpos == ipos) {
-			break;
-		}
-		else {
-			temp = heap->tree[mpos];
-			heap->tree[mpos] = heap->tree[ipos];
-			heap->tree[ipos] = temp;
-			ipos = mpos;
-		}
-	}
+    if (rpos < heap_size(heap) && heap->compare(heap->tree[rpos], heap->tree[mpos]) > 0) {
+      mpos = rpos;
+    }
 
-	return 0;
+    if (mpos == ipos) {
+      break;
+    }
+    else {
+      temp = heap->tree[mpos];
+      heap->tree[mpos] = heap->tree[ipos];
+      heap->tree[ipos] = temp;
+      ipos = mpos;
+    }
+  }
+
+  return 0;
 }
